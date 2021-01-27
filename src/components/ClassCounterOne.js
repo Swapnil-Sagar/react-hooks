@@ -6,6 +6,7 @@ class ClassCounterOne extends Component {
 
     this.state = {
       count: 0,
+      name: "",
     };
   }
 
@@ -14,7 +15,10 @@ class ClassCounterOne extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    document.title = `Clicked ${this.state.count} times`;
+    if (prevState.count !== this.state.count) {
+      console.log("Updating document title");
+      document.title = `Clicked ${this.state.count} times`;
+    }
   }
 
   incrementCount = () => {
@@ -26,6 +30,13 @@ class ClassCounterOne extends Component {
   render() {
     return (
       <div>
+        <input
+          type="text"
+          value={this.state.name}
+          onChange={(e) => {
+            this.setState({ name: e.target.value });
+          }}
+        />
         <button onClick={this.incrementCount}>
           {" "}
           Count: {this.state.count}
